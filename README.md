@@ -1,3 +1,1 @@
-# INFO2180 Lab 5
-
-This is Lab 5 for Shanae Wilson on PHP and MySQL
+# info2180-lab5
