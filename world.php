@@ -13,9 +13,24 @@ $stmt = $conn->prepare("SELECT * FROM countries WHERE name LIKE :country");
 $stmt->execute([':country' => '%' . $country . '%']);
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-<ul>
-<?php foreach ($result as $row): ?>
-    <li><?= htmlspecialchars($row['name']) ?> is ruled by <?= htmlspecialchars((string)$row['head_of_state']) ?></li>
-<?php endforeach; ?>
-</ul>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Continent</th>
+            <th>Independence</th>
+            <th>Head of State</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($result as $row): ?>
+        <tr>
+            <td><?= htmlspecialchars($row['name']) ?></td>
+            <td><?= htmlspecialchars($row['continent']) ?></td>
+            <td><?= htmlspecialchars((string)$row['independence_year']) ?></td>
+            <td><?= htmlspecialchars((string)$row['head_of_state']) ?></td>
+        </tr><?php endforeach; ?>
+    </tbody>
+</table>
+
  
