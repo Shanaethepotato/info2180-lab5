@@ -1,12 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
     const lookupBtn = document.getElementById('lookup');
+    const citiesBtn = document.getElementById('lookup-cities');
     const countryInput = document.getElementById('country');
     const result = document.getElementById('result');
- 
-    lookupBtn.addEventListener('click', () => {
+
+    function search(type) {
         const country = encodeURIComponent(countryInput.value.trim());
- 
-        fetch(`world.php?country=${country}`)
+        let url = `world.php?country=${country}`;
+
+        // Extra query parameter tells world.php to return cities
+        if (type === 'cities') {
+            url += '&lookup=cities';
+        }
+
+        fetch(url)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Request failed: ' + response.status);
@@ -19,5 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => {
                 result.textContent = 'Something went wrong: ' + error.message;
             });
-    });
+    }
+
+    lookupBtn.addEventListener('click', () => search('country'));
+    citiesBtn.addEventListener('click', () => search('cities'));
 });
